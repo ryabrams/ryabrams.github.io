@@ -13,8 +13,8 @@ linkedin_url: "https://linkedin.com/in/ryabrams"
 github_url:   "https://github.com/ryabrams"
 twitter_url:  "https://x.com/ryabrams"
 
-# Formspree form ID — replace with your own from formspree.io
-formspree_id: "YOUR_FORMSPREE_ID"
+# Formspree form ID
+formspree_id: "xeelnnld"
 
 # Build settings
 markdown: kramdown
