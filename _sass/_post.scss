@@ -153,6 +153,29 @@
     text-decoration: underline;
   }
 
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+    font-size: 15px;
+
+    th, td {
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      font-weight: 500;
+      color: var(--body);
+      border-bottom: 2px solid var(--border);
+    }
+
+    td {
+      color: #2a2a28;
+    }
+  }
+
   code {
     font-size: 14px;
     background: var(--off);
