@@ -26,6 +26,12 @@
   }
 }
 
+.thanks-cta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
 .contact-form {
   display: flex;
   flex-direction: column;
