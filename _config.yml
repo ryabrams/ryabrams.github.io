@@ -6,12 +6,33 @@ baseurl: ""
 # Avatar — set to your photo path (e.g. /assets/images/avatar.jpg) or a remote URL
 avatar: /assets/images/avatar.jpg
 
-author: Ryan Abrams
+# Author (used by jekyll-seo-tag for structured data and Twitter Cards)
+author:
+  name: Ryan Abrams
+  twitter: ryabrams
 
-# Social links
+# Social links (used in nav/footer templates)
 linkedin_url: "https://linkedin.com/in/ryabrams"
 github_url:   "https://github.com/ryabrams"
 twitter_url:  "https://x.com/ryabrams"
+
+# jekyll-seo-tag: Twitter username for twitter:site tag
+twitter:
+  username: ryabrams
+
+# jekyll-seo-tag: default OG image fallback (used when a page has no image: field)
+logo: /assets/images/avatar.jpg
+
+# jekyll-seo-tag: Person structured data / sameAs links
+social:
+  name: Ryan Abrams
+  links:
+    - https://x.com/ryabrams
+    - https://linkedin.com/in/ryabrams
+    - https://github.com/ryabrams
+
+# Google Tag Manager — replace with your GTM-XXXXXXXX container ID to enable
+gtm_id: ""
 
 # Formspree form ID
 formspree_id: "xeelnnld"
@@ -25,6 +46,11 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
+
+# RSS feed (jekyll-feed)
+feed:
+  path: feed.xml
+  excerpt_only: true
 
 # Exclude from build
 exclude:
