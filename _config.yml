@@ -31,8 +31,8 @@ social:
     - https://linkedin.com/in/ryabrams
     - https://github.com/ryabrams
 
-# Google Tag Manager — replace with your GTM-XXXXXXXX container ID to enable
-gtm_id: ""
+# Google Tag Manager
+gtm_id: "GTM-TCCWGMLK"
 
 # Formspree form ID
 formspree_id: "xeelnnld"
