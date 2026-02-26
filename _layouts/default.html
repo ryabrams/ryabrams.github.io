@@ -4,6 +4,10 @@
   {% include head.html %}
 </head>
 <body>
+  {% if site.gtm_id and site.gtm_id != "" %}<!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ site.gtm_id }}"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->{% endif %}
   {% include nav.html %}
   {{ content }}
   {% include footer.html %}

@@ -1,9 +1,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+{% if site.gtm_id and site.gtm_id != "" %}<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','{{ site.gtm_id }}');</script>
+<!-- End Google Tag Manager -->{% endif %}
+
+<!-- Title — keep "–" separator; seo tag handles OG/Twitter/canonical/JSON-LD -->
 <title>{% if page.title %}{{ page.title }} – {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
-<meta name="description" content="{% if page.description %}{{ page.description }}{% elsif page.excerpt %}{{ page.excerpt | strip_html | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+{% seo title=false %}
+
+<!-- RSS feed discovery -->
+{% feed_meta %}
+
+<!-- Fonts & styles -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
-{% feed_meta %}
-{% seo %}
