@@ -8,14 +8,14 @@ description: Ryan Abrams — Marketing Operations, Automation, and the tools tha
   <div class="avatar-wrap">
     <div class="avatar">
       {% if site.avatar %}
-        <img src="{{ site.avatar | relative_url }}" alt="{{ site.author }}">
+        <img src="{{ site.avatar | relative_url }}" alt="{{ site.author.name }}">
       {% else %}
         <div class="avatar-placeholder">Your photo</div>
       {% endif %}
     </div>
   </div>
 
-  <h1>Hi, I'm {{ site.author }}.</h1>
+  <h1>Hi, I'm {{ site.author.name }}.</h1>
   <p>{{ site.description }}</p>
 
   <div class="home-cta">
