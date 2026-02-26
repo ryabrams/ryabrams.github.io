@@ -1,0 +1,45 @@
+---
+layout: default
+---
+
+{% assign words = content | number_of_words %}
+{% assign read_time = words | divided_by: 200 %}
+{% if read_time == 0 %}{% assign read_time = 1 %}{% endif %}
+
+{% assign category = page.categories | first %}
+
+<div class="container">
+  <div class="post-header">
+    <div class="post-breadcrumb">
+      <a href="{{ '/blog/' | relative_url }}">Blog</a>
+      <span>›</span>
+      <span>{{ category }}</span>
+    </div>
+
+    <span class="post-tag">{{ category }}</span>
+
+    <h1>{{ page.title }}</h1>
+
+    <div class="post-byline">
+      <div class="byline-avatar">
+        {% if site.avatar %}
+          <img src="{{ site.avatar | relative_url }}" alt="{{ site.author }}">
+        {% endif %}
+      </div>
+      <div class="byline-info">
+        <strong>{{ site.author }}</strong>
+        <span>{{ page.date | date: "%B %-d, %Y" }} · {{ page.read_time | default: read_time }} min read</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="post-hero-img">
+    {% if page.image %}
+      <img src="{{ page.image | relative_url }}" alt="{{ page.title }}">
+    {% endif %}
+  </div>
+
+  <div class="post-body">
+    {{ content }}
+  </div>
+</div>

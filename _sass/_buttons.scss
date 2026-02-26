@@ -1,0 +1,30 @@
+.btn-primary {
+  display: inline-block;
+  background: var(--body);
+  color: #fff;
+  padding: 11px 24px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s;
+
+  &:hover {
+    background: var(--accent);
+  }
+}
+
+.btn-outline {
+  display: inline-block;
+  border: 1px solid var(--border);
+  color: var(--body);
+  padding: 11px 24px;
+  border-radius: 100px;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: var(--body);
+  }
+}

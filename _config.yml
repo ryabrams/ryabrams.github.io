@@ -1,0 +1,34 @@
+title: Ryan Abrams
+description: Thoughts on marketing operations, automation, and the tools that make it work.
+url: "https://ryanabrams.com"
+baseurl: ""
+
+# Avatar — set to your photo path (e.g. /assets/images/avatar.jpg) or a remote URL
+avatar: /assets/images/avatar.jpg
+
+author: Ryan Abrams
+
+# Social links
+linkedin_url: "https://linkedin.com/in/ryabrams"
+github_url:   "https://github.com/ryabrams"
+twitter_url:  "https://x.com/ryabrams"
+
+# Formspree form ID — replace with your own from formspree.io
+formspree_id: "YOUR_FORMSPREE_ID"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: /blog/:title/
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Exclude from build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor/

@@ -1,0 +1,10 @@
+<nav class="site-nav">
+  <div class="inner">
+    <a href="{{ '/' | relative_url }}" class="logo">{{ site.title }}</a>
+    <div class="nav-links">
+      <a href="{{ '/blog/' | relative_url }}"{% if page.url contains '/blog' %} class="active"{% endif %}>Blog</a>
+      <a href="{{ '/contact/' | relative_url }}"{% if page.url contains '/contact' %} class="active"{% endif %}>Contact</a>
+      <a href="{{ '/contact/' | relative_url }}" class="cta">Get in touch →</a>
+    </div>
+  </div>
+</nav>
