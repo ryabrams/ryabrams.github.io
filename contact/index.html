@@ -15,6 +15,8 @@ permalink: /contact/
     action="https://formspree.io/f/{{ site.formspree_id }}"
     method="POST">
 
+    <input type="hidden" name="_next" value="{{ '/thanks/' | absolute_url }}">
+
     <div class="form-row">
       <div class="form-group">
         <label for="fname">First name</label>
