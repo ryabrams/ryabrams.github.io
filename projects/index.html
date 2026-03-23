@@ -1,0 +1,38 @@
+---
+layout: default
+title: Projects
+description: A showcase of projects I've built across marketing ops, automation, and tooling.
+permalink: /projects/
+---
+
+<div class="container">
+  <div class="blog-header">
+    <h1>Projects</h1>
+    <p>A showcase of projects I've built across marketing ops, automation, and tooling.</p>
+  </div>
+
+  {% assign gradients = "linear-gradient(135deg,#dde3ec,#b8c3d4)|linear-gradient(135deg,#e8ddd2,#d4c0aa)|linear-gradient(135deg,#dce8de,#b8d1bb)|linear-gradient(135deg,#e8e0d8,#cfc4b8)|linear-gradient(135deg,#dde0e8,#b8bfd4)|linear-gradient(135deg,#e8dde0,#d4b8bc)" | split: "|" %}
+
+  {% assign project_posts = site.posts | where_exp: "post", "post.categories contains 'Projects'" %}
+
+  <div class="blog-grid">
+    {% for post in project_posts %}
+      {% assign gi = forloop.index0 | modulo: 6 %}
+      {% assign category = post.categories | first %}
+      <a href="{{ post.url | relative_url }}"
+         class="blog-card">
+        <div class="img">
+          <div class="img-inner" style="background: {{ gradients[gi] }}">
+            {% if post.image %}
+              <img src="{{ post.image | relative_url }}" alt="{{ post.title }}">
+            {% endif %}
+          </div>
+        </div>
+        <p class="tag">{{ category }}</p>
+        <h2>{{ post.title }}</h2>
+        <p class="excerpt">{{ post.excerpt | strip_html | truncate: 140 }}</p>
+        <p class="meta">{{ post.date | date: "%b %-d, %Y" }} · {{ post.read_time | default: 5 }} min read</p>
+      </a>
+    {% endfor %}
+  </div>
+</div>
