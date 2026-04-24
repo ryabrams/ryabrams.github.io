@@ -39,5 +39,15 @@ footer {
   .foot-copy {
     font-size: 12px;
     color: var(--muted);
+
+    a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+
+      &:hover {
+        color: var(--body);
+      }
+    }
   }
 }
