@@ -11,9 +11,16 @@ permalink: /blog/
     <p>Thoughts on marketing operations, automation, and the tools that make it work.</p>
   </div>
 
+  {% assign blog_posts = "" | split: "" %}
+  {% for post in site.posts %}
+    {% unless post.categories contains 'Projects' %}
+      {% assign blog_posts = blog_posts | push: post %}
+    {% endunless %}
+  {% endfor %}
+
   <div class="blog-filters">
     <button class="filter-pill active" data-filter="all">All</button>
-    {% assign categories = site.posts | map: 'categories' | flatten | uniq | sort %}
+    {% assign categories = blog_posts | map: 'categories' | flatten | uniq | sort %}
     {% for category in categories %}
       <button class="filter-pill" data-filter="{{ category | slugify }}">{{ category }}</button>
     {% endfor %}
@@ -22,7 +29,7 @@ permalink: /blog/
   {% assign gradients = "linear-gradient(135deg,#dde3ec,#b8c3d4)|linear-gradient(135deg,#e8ddd2,#d4c0aa)|linear-gradient(135deg,#dce8de,#b8d1bb)|linear-gradient(135deg,#e8e0d8,#cfc4b8)|linear-gradient(135deg,#dde0e8,#b8bfd4)|linear-gradient(135deg,#e8dde0,#d4b8bc)" | split: "|" %}
 
   <div class="blog-grid">
-    {% for post in site.posts %}
+    {% for post in blog_posts %}
       {% assign gi = forloop.index0 | modulo: 6 %}
       {% assign category = post.categories | first %}
       <a href="{{ post.url | relative_url }}"
