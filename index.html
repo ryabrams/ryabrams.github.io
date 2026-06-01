@@ -47,7 +47,13 @@ description: Ryan Abrams — Marketing Operations, Automation, and the tools tha
 
     <div class="feat-grid">
       {% assign gradients = "linear-gradient(135deg,#dde3ec,#b8c3d4)|linear-gradient(135deg,#e8ddd2,#d4c0aa)|linear-gradient(135deg,#dce8de,#b8d1bb)" | split: "|" %}
-      {% for post in site.posts limit: 3 %}
+      {% assign blog_posts = "" | split: "" %}
+      {% for post in site.posts %}
+        {% unless post.categories contains 'Projects' %}
+          {% assign blog_posts = blog_posts | push: post %}
+        {% endunless %}
+      {% endfor %}
+      {% for post in blog_posts limit: 3 %}
         {% assign gi = forloop.index0 %}
         <a href="{{ post.url | relative_url }}" class="feat-card">
           <div class="img">
@@ -63,5 +69,11 @@ description: Ryan Abrams — Marketing Operations, Automation, and the tools tha
         </a>
       {% endfor %}
     </div>
+
+    {% if blog_posts.size > 3 %}
+    <div class="feat-more">
+      <a href="{{ '/blog/' | relative_url }}" class="btn-more">More posts →</a>
+    </div>
+    {% endif %}
   </div>
 </section>

@@ -174,3 +174,25 @@
     color: var(--muted);
   }
 }
+
+.feat-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+
+  .btn-more {
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--body);
+    text-decoration: none;
+    padding: 10px 24px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    transition: border-color 0.2s, color 0.2s;
+
+    &:hover {
+      border-color: var(--body);
+      color: var(--accent);
+    }
+  }
+}
