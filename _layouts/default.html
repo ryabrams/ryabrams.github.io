@@ -11,5 +11,22 @@
   {% include nav.html %}
   {{ content }}
   {% include footer.html %}
+  <script>
+    (function () {
+      var btn = document.getElementById('theme-toggle');
+      if (!btn) return;
+      function sync() {
+        var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+        btn.setAttribute('aria-pressed', dark);
+      }
+      btn.addEventListener('click', function () {
+        var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        try { localStorage.setItem('theme', next); } catch (e) {}
+        sync();
+      });
+      sync();
+    })();
+  </script>
 </body>
 </html>

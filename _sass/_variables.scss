@@ -4,9 +4,32 @@
   --border: #e5e5e3;
   --muted:  #8a8a86;
   --body:   #1a1a18;
+  --text-2: #2a2a28;
+  --text-3: #555555;
   --accent: #0f6fff;
+  /* High-contrast pill buttons (dark surface in light mode) */
+  --invert:      #1a1a18;
+  --invert-text: #ffffff;
+  /* Sticky nav background */
+  --nav-bg: rgba(255, 255, 255, 0.92);
   --serif:  'Instrument Serif', Georgia, serif;
   --sans:   'DM Sans', sans-serif;
   --max:    1140px;
   --nav-h:  64px;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --white:  #121212;
+  --off:    #1e1e1e;
+  --border: #2e2e2c;
+  --muted:  #9a9a96;
+  --body:   #ededeb;
+  --text-2: #d4d4d0;
+  --text-3: #b0b0ac;
+  --accent: #4d94ff;
+  --invert:      #ededeb;
+  --invert-text: #121212;
+  --nav-bg: rgba(18, 18, 18, 0.92);
+  color-scheme: dark;
 }

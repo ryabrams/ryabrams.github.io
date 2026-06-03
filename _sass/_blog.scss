@@ -38,9 +38,9 @@
   transition: all 0.15s;
 
   &.active {
-    background: var(--body);
-    color: #fff;
-    border-color: var(--body);
+    background: var(--invert);
+    color: var(--invert-text);
+    border-color: var(--invert);
   }
 
   &:hover:not(.active) {
@@ -115,7 +115,7 @@
 
   .excerpt {
     font-size: 14px;
-    color: #555;
+    color: var(--text-3);
     line-height: 1.6;
     margin-bottom: 12px;
     display: -webkit-box;

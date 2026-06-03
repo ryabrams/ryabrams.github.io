@@ -90,8 +90,8 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--body);
-  color: #fff;
+  background: var(--invert);
+  color: var(--invert-text);
   border: none;
   padding: 13px 28px;
   border-radius: 100px;
@@ -99,11 +99,12 @@
   font-weight: 500;
   font-family: var(--sans);
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, color 0.2s;
   align-self: flex-start;
 
   &:hover {
     background: var(--accent);
+    color: #fff;
   }
 
   svg {
