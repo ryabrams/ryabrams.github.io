@@ -1,10 +1,11 @@
 ---
 layout: post
 title: "The UTM tracking framework that actually scales across campaigns"
-date: 2024-11-15
-categories: [UTM Tracking]
+date: 2024-06-04
+categories: [Marketing Attribution]
 excerpt: "Stop losing attribution data. Here's the system I built and maintain for clean UTM coverage at scale."
 read_time: 5
+image: /assets/images/blog/utm-tracking-framework.webp
 ---
 
 UTM parameters are simple in theory and a mess in practice. Every team I've joined has had some version of a UTM spreadsheet that nobody fully trusts, inconsistent naming that makes reports useless, and the occasional panic when leadership asks why 40% of web traffic is showing as "direct."

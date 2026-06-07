@@ -5,3 +5,6 @@ _site/
 vendor/
 .bundle/
 Gemfile.lock
+
+# Claude Code local (machine-specific) settings
+.claude/settings.local.json

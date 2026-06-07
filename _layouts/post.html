@@ -33,6 +33,8 @@ layout: default
     </div>
   </div>
 
+  {% include post-share.html %}
+
   {% if page.image %}
   <div class="post-hero-img">
     <img src="{{ page.image | relative_url }}" alt="{{ page.title }}">
@@ -42,4 +44,6 @@ layout: default
   <div class="post-body">
     {{ content }}
   </div>
+
+  {% include post-share.html class="post-share--bottom" %}
 </div>

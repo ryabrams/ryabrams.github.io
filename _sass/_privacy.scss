@@ -112,7 +112,7 @@
   p {
     font-size: 16px;
     line-height: 1.8;
-    color: #2a2a28;
+    color: var(--text-2);
     margin-bottom: 16px;
 
     &:last-child {
@@ -132,7 +132,7 @@
     li {
       font-size: 16px;
       line-height: 1.8;
-      color: #2a2a28;
+      color: var(--text-2);
       margin-bottom: 6px;
 
       strong {
@@ -151,7 +151,7 @@
   border-radius: 0 6px 6px 0;
   font-size: 15px;
   line-height: 1.7;
-  color: #2a2a28;
+  color: var(--text-2);
 
   strong {
     font-weight: 500;
