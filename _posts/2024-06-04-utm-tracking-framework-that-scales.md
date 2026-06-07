@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "The UTM tracking framework that actually scales across campaigns"
-date: 2024-11-15
+date: 2024-06-04
 categories: [UTM Tracking]
 excerpt: "Stop losing attribution data. Here's the system I built and maintain for clean UTM coverage at scale."
 read_time: 5
