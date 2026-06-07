@@ -5,6 +5,7 @@ date: 2024-06-04
 categories: [Marketing Attribution]
 excerpt: "Stop losing attribution data. Here's the system I built and maintain for clean UTM coverage at scale."
 read_time: 5
+image: /assets/images/blog/utm-tracking-framework.png
 ---
 
 UTM parameters are simple in theory and a mess in practice. Every team I've joined has had some version of a UTM spreadsheet that nobody fully trusts, inconsistent naming that makes reports useless, and the occasional panic when leadership asks why 40% of web traffic is showing as "direct."
