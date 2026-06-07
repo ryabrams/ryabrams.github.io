@@ -10,6 +10,8 @@ Personal website + blog for Ryan Abrams.
 - **Hosting:** GitHub Pages, built automatically on push
 - **Domain:** `ryanabrams.com` (apex), DNS + proxy via **Cloudflare**
 - **Deploy branch:** `main` — pushing to `main` triggers the Pages build
+- **Working branch:** `dev` — day-to-day changes happen here (see
+  Branch workflow below)
 - **Plugins:** `jekyll-feed`, `jekyll-sitemap`, `jekyll-seo-tag`
 
 ## Local build / preview
@@ -84,9 +86,19 @@ Cloudflare sits in front of GitHub Pages and caches aggressively.
   (~60 KB) and store in `assets/images/blog/`. Cards/hero use
   `object-fit: cover`, so keep the subject centered.
 
+## Branch workflow
+
+- **Develop on `dev`.** Make and commit all changes on `dev`.
+- **`main` is the deploy branch.** Work on `dev` is NOT live until it
+  reaches `main` — GitHub Pages only builds `main`.
+- **When the owner says "push," push to `main`.** That means: merge
+  `dev` → `main` and push `main` (this triggers the deploy). Then keep
+  `dev` and `main` in sync so they don't drift.
+- `dev` and `main` should hold identical content; only diverge while a
+  set of changes is in progress on `dev`.
+
 ## Conventions for changes
 
-- Develop on `main` (per the owner's instruction) and push when asked.
 - Keep edits consistent with the existing style; reuse the theme tokens.
 - Don't commit `_site/`, caches, `Gemfile.lock`, or
   `.claude/settings.local.json` (see `.gitignore`).
