@@ -80,6 +80,59 @@
   }
 }
 
+.post-share {
+  max-width: 720px;
+  margin: 24px auto 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .share-label {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 4px;
+  }
+
+  .share-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--text-2);
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+
+    &:hover {
+      border-color: var(--body);
+      color: var(--body);
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .share-copy {
+    .icon-check { display: none; }
+
+    &.copied {
+      border-color: var(--accent);
+      color: var(--accent);
+
+      .icon-link { display: none; }
+      .icon-check { display: block; }
+    }
+  }
+}
+
 .post-hero-img {
   max-width: 720px;
   margin: 40px auto;
