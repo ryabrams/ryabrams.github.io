@@ -131,6 +131,12 @@
       .icon-check { display: block; }
     }
   }
+
+  &.post-share--bottom {
+    margin: 0 auto 80px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
 }
 
 .post-hero-img {
@@ -151,7 +157,7 @@
 .post-body {
   max-width: 680px;
   margin: 0 auto;
-  padding-bottom: 80px;
+  padding-bottom: 48px;
 
   p {
     font-size: 17px;
