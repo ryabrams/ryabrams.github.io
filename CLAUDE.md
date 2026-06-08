@@ -88,6 +88,9 @@ Cloudflare sits in front of GitHub Pages and caches aggressively.
 
 ## Branch workflow
 
+- **Before doing any work on `dev`, check it against `main`.** If `dev`
+  is behind `main`, sync it first (bring `main` into `dev`) before
+  making changes — start every task from a `dev` that matches `main`.
 - **Develop on `dev`.** Make and commit all changes on `dev`.
 - **`main` is the deploy branch.** Work on `dev` is NOT live until it
   reaches `main` — GitHub Pages only builds `main`.
