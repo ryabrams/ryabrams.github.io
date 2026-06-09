@@ -2,6 +2,22 @@
 
 Guidance for working in this repository.
 
+## Start here (the rules that matter most)
+
+1. **Work on `dev`, not `main`.** Develop and commit on `dev`; push to
+   `origin/dev` freely to save work.
+2. **Never push to `main` without explicit approval** — that deploys the
+   live site. Only when the owner says "push."
+3. **New posts default to `published: false`** (draft). Never publish
+   (`published: true`) unless explicitly told.
+4. **Sync first, rebase always.** Before starting work, make sure `dev`
+   isn't behind `main`; before any push, `git pull --rebase`.
+5. **Build before you trust it.** Ephemeral sandbox with a UTF-8 build
+   quirk — see Local build. Always build (and `grep` `_site/`) to
+   confirm a change before committing.
+
+Detail for each of these is in the sections below.
+
 ## What this is
 
 Personal website + blog for Ryan Abrams.
@@ -33,9 +49,9 @@ exe directly:
 
 Output goes to `_site/` (git-ignored). Always build before pushing
 non-trivial changes to confirm it compiles, then `grep` the relevant
-file under `_site/` to confirm the change actually rendered. Note that
-**drafts (`published: false`) are excluded from the build**, so a draft
-post's absence from `_site/` is expected, not a failure.
+file under `_site/` to confirm the change actually rendered. Remember
+that **drafts (`published: false`) are excluded from the build**, so a
+draft's absence from `_site/` is expected, not a failure.
 
 ## Caching (important)
 
@@ -57,6 +73,24 @@ Cloudflare sits in front of GitHub Pages and caches aggressively.
 - `assets/css/main.scss` — imports the partials (has Jekyll front matter)
 - `assets/images/` — `avatar.jpg`; `blog/` for post images
 - favicons + `site.webmanifest` live at the repo root
+- `index.html` (homepage), `blog/index.html`, `projects/index.html`,
+  `privacy-policy/`, `thanks/`, `thanks-booking/`
+
+## Pages & display logic
+
+- **The `Projects` category is the switch.** A post whose `categories`
+  contain `Projects` shows on `/projects/` and is **excluded** from the
+  blog index and homepage feed. Everything else is a blog post.
+- **Homepage (`index.html`):** hero (avatar + social links, each shown
+  only if its matching `site.*_url` is set), then a "Latest from the
+  blog" feed — non-`Projects` posts, **capped at 3**, followed by a
+  permanent "More posts →" button to `/blog/`.
+- **Blog index (`/blog/`):** all non-`Projects` posts, with category
+  **filter pills** auto-generated from the posts' categories (client-side
+  JS filtering via `data-category` / `data-filter`).
+- **Projects (`/projects/`):** only `Projects` posts, same card style.
+- Cards use the post's `image` if set, otherwise fall back to a cycling
+  CSS gradient placeholder.
 
 ## Theme system (light/dark)
 
@@ -88,9 +122,9 @@ Cloudflare sits in front of GitHub Pages and caches aggressively.
 - **Posts:** `_posts/YYYY-MM-DD-slug.md`, `layout: post`. Front matter:
   `title`, `date`, `categories`, `excerpt`, `read_time`, optional `image`.
 - **Permalink** is `/blog/:title/` — the date affects ordering only, not
-  the URL.
-- **Project posts:** include `Projects` in `categories`. They show on
-  `/projects/` and are excluded from the blog index and homepage feed.
+  the URL (the URL comes from the filename slug).
+- **Project posts:** include `Projects` in `categories` (see Pages &
+  display logic for how that routes the post).
 - **Drafts & publishing:** `published: false` keeps a post/page out of
   the build (not live, not in `_site/`); `published: true` (or omitting
   the line) publishes it. The owner frequently keeps **drafts** in the
@@ -120,6 +154,30 @@ Cloudflare sits in front of GitHub Pages and caches aggressively.
   `.feat-card .img img` (homepage cards). Before adding an image in a new
   context, confirm a sizing rule exists for it — don't assume.
 
+### Creating a new post
+
+1. Create `_posts/YYYY-MM-DD-slug.md`. The **date** sets ordering; the
+   **slug** sets the URL (`/blog/slug/`).
+2. Start from this front matter — note `published: false` by default:
+
+   ```yaml
+   ---
+   layout: post
+   title: "Post Title"
+   date: 2026-06-09
+   categories: [Marketing Ops]   # add "Projects" to route it to /projects/
+   excerpt: "One sentence for cards and social/search previews."
+   read_time: 5
+   # image: /assets/images/blog/slug.webp   # optional 16:9 WebP hero
+   published: false
+   ---
+   ```
+
+3. Write the body in Markdown; use `##` / `###` for section headings.
+   Inline images: optimize to WebP into `assets/images/blog/` first.
+4. Build locally to confirm. Leave `published: false` until the owner
+   explicitly asks to publish.
+
 ## Branch workflow
 
 - **Before doing any work on `dev`, check it against `main`.** If `dev`
@@ -130,8 +188,7 @@ Cloudflare sits in front of GitHub Pages and caches aggressively.
   reaches `main` — GitHub Pages only builds `main`.
 - **Never push `dev` → `main` without explicit approval.** Pushing to
   `main` deploys to the live site, so it only happens when the owner
-  explicitly says to. Committing and pushing to `origin/dev` to save
-  work is always fine; merging into `main` is not, unless asked.
+  explicitly says to.
 - **When the owner says "push," push to `main`.** That means: merge
   `dev` → `main` and push `main` (this triggers the deploy). Then keep
   `dev` and `main` in sync so they don't drift.
@@ -142,8 +199,8 @@ Cloudflare sits in front of GitHub Pages and caches aggressively.
   before any push to avoid rejected pushes.
 - **The sandbox is ephemeral.** The container is cloned fresh each
   session and reclaimed afterward; uncommitted/unpushed work is lost.
-  Commit and push to `origin/dev` to persist work across sessions (this
-  is just saving — it is not a deploy and needs no approval).
+  Commit and push to `origin/dev` to persist work across sessions —
+  that's just saving, not a deploy, and needs no approval.
 
 ## Conventions for changes
 
