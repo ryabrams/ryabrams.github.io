@@ -32,7 +32,10 @@ exe directly:
 `LANG=C.UTF-8 bundle exec ruby "$(find / -path '*/gems/jekyll-*/exe/jekyll' | head -1)" build`
 
 Output goes to `_site/` (git-ignored). Always build before pushing
-non-trivial changes to confirm it compiles.
+non-trivial changes to confirm it compiles, then `grep` the relevant
+file under `_site/` to confirm the change actually rendered. Note that
+**drafts (`published: false`) are excluded from the build**, so a draft
+post's absence from `_site/` is expected, not a failure.
 
 ## Caching (important)
 
@@ -68,6 +71,18 @@ Cloudflare sits in front of GitHub Pages and caches aggressively.
 - The theme toggle, mobile hamburger menu, copy-link, and auto
   copyright-year scripts all live at the bottom of `_layouts/default.html`.
 
+## JavaScript & dependencies
+
+- **All interactivity is vanilla, inline JS** in `_layouts/default.html`
+  (theme toggle, hamburger, copyright year, copy-link). No build step,
+  no framework, no client-side package manager — keep it that way.
+- **No third-party scripts** for features. Share buttons use plain
+  intent URLs (LinkedIn/X/mailto) and the clipboard API with an
+  `execCommand` fallback — no SDKs. Preserve this dependency-light,
+  privacy-friendly approach.
+- The only optional external tag is **Google Tag Manager**, rendered in
+  `default.html` *only if* `site.gtm_id` is set in `_config.yml`.
+
 ## Content conventions
 
 - **Posts:** `_posts/YYYY-MM-DD-slug.md`, `layout: post`. Front matter:
@@ -92,6 +107,11 @@ Cloudflare sits in front of GitHub Pages and caches aggressively.
   the sandbox via `pip install Pillow` (PyPI is reachable; arbitrary
   hosts are blocked). Don't assume image work is impossible — it's how
   the hero and inline images here were compressed.
+- **Image-sizing gotcha (hit twice):** any raw `<img>` needs an explicit
+  CSS rule (`max-width: 100%; height: auto`) or it overflows and breaks
+  layout on mobile. The covered cases are `.post-body img` (inline) and
+  `.feat-card .img img` (homepage cards). Before adding an image in a new
+  context, confirm a sizing rule exists for it — don't assume.
 
 ## Branch workflow
 
@@ -110,6 +130,13 @@ Cloudflare sits in front of GitHub Pages and caches aggressively.
   `dev` and `main` in sync so they don't drift.
 - `dev` and `main` should hold identical content; only diverge while a
   set of changes is in progress on `dev`.
+- **Rebase before pushing.** The remote is often ahead — the owner
+  pushes commits directly. Run `git pull --rebase origin <branch>`
+  before any push to avoid rejected pushes.
+- **The sandbox is ephemeral.** The container is cloned fresh each
+  session and reclaimed afterward; uncommitted/unpushed work is lost.
+  Commit and push to `origin/dev` to persist work across sessions (this
+  is just saving — it is not a deploy and needs no approval).
 
 ## Conventions for changes
 
