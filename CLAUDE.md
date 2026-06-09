@@ -91,8 +91,15 @@ Cloudflare sits in front of GitHub Pages and caches aggressively.
   the URL.
 - **Project posts:** include `Projects` in `categories`. They show on
   `/projects/` and are excluded from the blog index and homepage feed.
-- **Drafts:** add `published: false` (omitting the line = published).
-  Works on any page or post.
+- **Drafts & publishing:** `published: false` keeps a post/page out of
+  the build (not live, not in `_site/`); `published: true` (or omitting
+  the line) publishes it. The owner frequently keeps **drafts** in the
+  repo that aren't ready yet, so treat unfinished posts as drafts by
+  default.
+  - **When asked to create a new post, always set `published: false`.**
+  - **Never set `published: true` unless the owner explicitly says to
+    publish.** Adding finished content to a post is not the same as
+    publishing it — leave the draft flag alone until told otherwise.
 - **Search visibility:** site is indexable by default. Use
   `noindex: true` to keep a page out of search and `sitemap: false` to
   keep it out of `sitemap.xml`. Both are set on `privacy-policy`,
