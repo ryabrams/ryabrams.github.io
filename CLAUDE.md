@@ -72,10 +72,11 @@ Cloudflare sits in front of GitHub Pages and caches aggressively.
 - `_includes/` — `head.html`, `nav.html`, `footer.html`, `post-share.html`
 - `_sass/` — partials; `_variables.scss` holds the theme tokens
 - `assets/css/main.scss` — imports the partials (has Jekyll front matter)
-- `assets/images/` — `avatar.jpg`; `blog/` for post images
+- `assets/images/` — `avatar.jpg`, `social-card.jpg` (default OG image);
+  `blog/` for post/hero images
 - favicons + `site.webmanifest` live at the repo root
 - `index.html` (homepage), `blog/index.html`, `projects/index.html`,
-  `privacy-policy/`, `thanks/`, `thanks-booking/`
+  `contact/`, `privacy-policy/`, `thanks/`, `thanks-booking/`
 
 ## Pages & display logic
 
