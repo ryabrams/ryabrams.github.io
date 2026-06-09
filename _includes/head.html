@@ -21,8 +21,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','{{ site.gtm_id }}');</script>
 <!-- End Google Tag Manager -->{% endif %}
 
-<!-- Title — keep "–" separator; seo tag handles OG/Twitter/canonical/JSON-LD -->
-<title>{% if page.title %}{{ page.title }} – {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+<!-- Title — page.title is the full <title> verbatim (no auto-appended brand);
+     bake the brand into each page's title where wanted. seo tag handles OG/Twitter/canonical/JSON-LD -->
+<title>{% if page.title %}{{ page.title | escape }}{% else %}{{ site.title | escape }}{% endif %}</title>
 {% seo title=false %}
 
 <!-- RSS feed discovery -->

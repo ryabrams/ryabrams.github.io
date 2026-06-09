@@ -1,9 +1,10 @@
 ---
 layout: post
-title: "The UTM tracking framework that actually scales across campaigns"
+title: "The UTM Tracking Framework That Actually Scales"
 date: 2024-06-04
 categories: [Marketing Attribution]
 excerpt: "Stop losing attribution data. Here's the system I built and maintain for clean UTM coverage at scale."
+description: "A field-tested UTM system: naming convention, central link generator, monthly audit. Steal the playbook →"
 read_time: 5
 image: /assets/images/blog/utm-tracking-framework.webp
 ---
