@@ -85,6 +85,13 @@ Cloudflare sits in front of GitHub Pages and caches aggressively.
 - **Featured images:** 16:9 (e.g. 1600×900). Compress to **WebP**
   (~60 KB) and store in `assets/images/blog/`. Cards/hero use
   `object-fit: cover`, so keep the subject centered.
+- **Inline post images** go in `assets/images/blog/` too; `.post-body
+  img` makes them responsive. Convert/compress these to WebP as well.
+- **Image tooling is available.** Python **Pillow** handles
+  conversion/compression (resize, JPEG/PNG → WebP). It's installable in
+  the sandbox via `pip install Pillow` (PyPI is reachable; arbitrary
+  hosts are blocked). Don't assume image work is impossible — it's how
+  the hero and inline images here were compressed.
 
 ## Branch workflow
 
