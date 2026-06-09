@@ -2,6 +2,11 @@
 
 Guidance for working in this repository.
 
+> **Read this entire file before doing any work — do not skim.** It is
+> short on purpose. The rules below (especially the branch/publish
+> guardrails) are not optional, and missing one has real consequences
+> (an unwanted deploy, a published draft, a broken mobile layout).
+
 ## Start here (the rules that matter most)
 
 1. **Work on `dev`, not `main`.** Develop and commit on `dev`; push to
