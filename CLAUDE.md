@@ -57,8 +57,9 @@ draft's absence from `_site/` is expected, not a failure.
 
 Cloudflare sits in front of GitHub Pages and caches aggressively.
 
-- `assets/css/main.css` is cache-busted with `?v={{ site.time }}` in
-  `_includes/head.html`, so CSS refreshes on each build.
+- `assets/css/main.css` is cache-busted with
+  `?v={{ site.time | date: '%s' }}` in `_includes/head.html`, so CSS
+  refreshes on each build.
 - HTML can still be served stale. After a change that looks like it
   "didn't deploy," do a Cloudflare **Purge Everything** and hard-refresh.
 - The sandbox cannot fetch the live domain (`host_not_allowed`); verify
@@ -107,15 +108,19 @@ Cloudflare sits in front of GitHub Pages and caches aggressively.
 
 ## JavaScript & dependencies
 
-- **All interactivity is vanilla, inline JS** in `_layouts/default.html`
-  (theme toggle, hamburger, copyright year, copy-link). No build step,
-  no framework, no client-side package manager — keep it that way.
-- **No third-party scripts** for features. Share buttons use plain
+- **All interactive features are vanilla, inline JS** in
+  `_layouts/default.html` (theme toggle, hamburger, copyright year,
+  copy-link). No build step, no framework, no client-side package
+  manager — keep it that way.
+- **Don't add third-party JS for features.** Share buttons use plain
   intent URLs (LinkedIn/X/mailto) and the clipboard API with an
-  `execCommand` fallback — no SDKs. Preserve this dependency-light,
-  privacy-friendly approach.
-- The only optional external tag is **Google Tag Manager**, rendered in
-  `default.html` *only if* `site.gtm_id` is set in `_config.yml`.
+  `execCommand` fallback — no SDKs. New features should follow suit.
+- **Analytics is the deliberate exception:** Google Tag Manager
+  (`gtm.js`) loads in `head.html` (and a `<noscript>` iframe in
+  `default.html`) whenever `site.gtm_id` is set — currently
+  `GTM-TCCWGMLK`. This **is** third-party tracking, so the site is not
+  "script-free" or privacy-neutral; any additional tags live inside GTM,
+  not the repo.
 
 ## Content conventions
 
