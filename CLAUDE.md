@@ -94,6 +94,10 @@ Cloudflare sits in front of GitHub Pages and caches aggressively.
 - **Develop on `dev`.** Make and commit all changes on `dev`.
 - **`main` is the deploy branch.** Work on `dev` is NOT live until it
   reaches `main` — GitHub Pages only builds `main`.
+- **Never push `dev` → `main` without explicit approval.** Pushing to
+  `main` deploys to the live site, so it only happens when the owner
+  explicitly says to. Committing and pushing to `origin/dev` to save
+  work is always fine; merging into `main` is not, unless asked.
 - **When the owner says "push," push to `main`.** That means: merge
   `dev` → `main` and push `main` (this triggers the deploy). Then keep
   `dev` and `main` in sync so they don't drift.
