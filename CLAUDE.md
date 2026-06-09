@@ -138,6 +138,15 @@ Cloudflare sits in front of GitHub Pages and caches aggressively.
   `noindex: true` to keep a page out of search and `sitemap: false` to
   keep it out of `sitemap.xml`. Both are set on `privacy-policy`,
   `thanks`, and `thanks-booking`.
+- **Sitemap:** a **custom `sitemap.xml`** at the repo root overrides
+  `jekyll-sitemap` (the plugin defers when the file exists). It adds a
+  `<lastmod>` to every URL: posts use `last_modified_at` or their `date`;
+  pages fall back to **`site.time`** (the build timestamp), so page
+  `lastmod` reflects the last *build*, not the last content change. Set
+  `last_modified_at:` in a page's front matter to give it an accurate
+  date. (GitHub Pages can't run `jekyll-last-modified-at`, so git-based
+  per-page dates aren't available without moving to a custom Actions
+  build.)
 - **Featured images:** 16:9 (e.g. 1600×900). Compress to **WebP**
   (~60 KB) and store in `assets/images/blog/`. Cards/hero use
   `object-fit: cover`, so keep the subject centered.
