@@ -20,8 +20,18 @@ twitter_url:  "https://x.com/ryabrams"
 twitter:
   username: ryabrams
 
-# jekyll-seo-tag: default OG image fallback (used when a page has no image: field)
+# jekyll-seo-tag: logo only feeds JSON-LD structured data (NOT og:image)
 logo: /assets/images/avatar.jpg
+
+# Default og:image for static pages (homepage, blog, projects, etc.).
+# Scoped to `pages` only so posts keep their own image / gradient placeholder
+# on cards; a post sets its own `image:` to override for its og:image.
+defaults:
+  - scope:
+      path: ""
+      type: pages
+    values:
+      image: /assets/images/social-card.jpg
 
 # jekyll-seo-tag: Person structured data / sameAs links
 social:
