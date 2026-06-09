@@ -4,13 +4,10 @@
   {% include head.html %}
 </head>
 <body>
-  {% if site.gtm_id and site.gtm_id != "" %}<!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ site.gtm_id }}"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->{% endif %}
   {% include nav.html %}
   {{ content }}
   {% include footer.html %}
+  {% include cookie-consent.html %}
   <script>
     (function () {
       var btn = document.getElementById('theme-toggle');
@@ -81,6 +78,67 @@
           }
         });
       });
+    })();
+  </script>
+  <script>
+    (function () {
+      var banner = document.getElementById('cookie-banner');
+      var modal = document.getElementById('cookie-settings');
+      var toggle = document.getElementById('cc-analytics');
+      var KEY = 'cookieConsent';
+
+      function read() {
+        try { return JSON.parse(localStorage.getItem(KEY)); } catch (e) { return null; }
+      }
+      function save(consent) {
+        try { localStorage.setItem(KEY, JSON.stringify(consent)); } catch (e) {}
+      }
+      function apply(consent) {
+        if (consent && consent.analytics && typeof window.loadGTM === 'function') window.loadGTM();
+      }
+      function showBanner() { if (banner) banner.hidden = false; }
+      function hideBanner() { if (banner) banner.hidden = true; }
+      function openModal() {
+        if (!modal) return;
+        var c = read();
+        if (toggle) toggle.checked = !!(c && c.analytics);
+        modal.hidden = false;
+      }
+      function closeModal() { if (modal) modal.hidden = true; }
+
+      function decide(analytics) {
+        var consent = { analytics: !!analytics };
+        save(consent);
+        apply(consent);
+        hideBanner();
+        closeModal();
+      }
+
+      // Wire up any element carrying a data-cc action (banner + modal)
+      document.querySelectorAll('[data-cc]').forEach(function (el) {
+        el.addEventListener('click', function () {
+          switch (el.getAttribute('data-cc')) {
+            case 'accept':   decide(true); break;
+            case 'reject':   decide(false); break;
+            case 'save':     decide(toggle && toggle.checked); break;
+            case 'settings': openModal(); break;
+            case 'close':    closeModal(); break;
+          }
+        });
+      });
+
+      // Footer "Cookie settings" link can reopen the modal anytime
+      var reopen = document.getElementById('open-cookie-settings');
+      if (reopen) reopen.addEventListener('click', function (e) { e.preventDefault(); openModal(); });
+
+      // Escape closes the modal
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal && !modal.hidden) closeModal();
+      });
+
+      // On load: honor a prior choice, otherwise prompt
+      var existing = read();
+      if (existing) { apply(existing); } else { showBanner(); }
     })();
   </script>
 </body>

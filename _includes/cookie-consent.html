@@ -1,0 +1,54 @@
+{% if site.gtm_id and site.gtm_id != "" %}
+<!-- Cookie consent — gates GTM until the visitor chooses. Logic in default.html. -->
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="About cookies on this site" hidden>
+  <div class="cookie-card">
+    <h2 class="cookie-title">About cookies on this site</h2>
+    <p class="cookie-text">
+      We use cookies and similar technologies to understand how this site is
+      used and to improve it. Analytics load only if you allow them. See our
+      <a href="{{ '/privacy-policy/' | relative_url }}#cookies">Cookie Policy</a>.
+    </p>
+    <div class="cookie-actions">
+      <button type="button" class="cookie-link" data-cc="settings">Cookie settings</button>
+      <button type="button" class="cookie-btn cookie-secondary" data-cc="reject">Reject</button>
+      <button type="button" class="cookie-btn cookie-primary" data-cc="accept">Allow all cookies</button>
+    </div>
+  </div>
+</div>
+
+<div id="cookie-settings" class="cookie-modal" role="dialog" aria-modal="true" aria-labelledby="cookie-settings-title" hidden>
+  <div class="cookie-backdrop" data-cc="close"></div>
+  <div class="cookie-modal-card">
+    <h2 id="cookie-settings-title" class="cookie-title">Cookie settings</h2>
+    <p class="cookie-text">
+      Choose which cookies to allow. See our
+      <a href="{{ '/privacy-policy/' | relative_url }}#cookies">Cookie Policy</a>.
+    </p>
+
+    <div class="cookie-cat">
+      <div class="cookie-cat-head">
+        <span class="cookie-cat-name">Necessary</span>
+        <span class="cookie-always">Always on</span>
+      </div>
+      <p class="cookie-cat-desc">Required for the site to work. These don't track you.</p>
+    </div>
+
+    <div class="cookie-cat">
+      <div class="cookie-cat-head">
+        <span class="cookie-cat-name">Analytics</span>
+        <label class="cookie-switch">
+          <input type="checkbox" id="cc-analytics">
+          <span class="cookie-slider"></span>
+          <span class="cookie-sr">Allow analytics cookies</span>
+        </label>
+      </div>
+      <p class="cookie-cat-desc">Google Tag Manager / analytics, to measure traffic. Off by default.</p>
+    </div>
+
+    <div class="cookie-actions">
+      <button type="button" class="cookie-btn cookie-secondary" data-cc="reject">Reject all</button>
+      <button type="button" class="cookie-btn cookie-primary" data-cc="save">Save preferences</button>
+    </div>
+  </div>
+</div>
+{% endif %}
