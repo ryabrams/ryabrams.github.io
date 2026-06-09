@@ -147,6 +147,17 @@ Cloudflare sits in front of GitHub Pages and caches aggressively.
   date. (GitHub Pages can't run `jekyll-last-modified-at`, so git-based
   per-page dates aren't available without moving to a custom Actions
   build.)
+- **Social meta (Open Graph / Twitter):** handled by `jekyll-seo-tag`
+  (`{% seo title=false %}` in `head.html`). Its **`og:image` comes from
+  `page.image` only** — *not* `site.image` or `logo` (`logo` feeds only
+  the JSON-LD structured data). The site-wide default card lives at
+  `assets/images/social-card.jpg` (1200×630 JPEG — JPEG, not WebP, for
+  scraper compatibility) and is applied via a `_config.yml` `defaults`
+  block **scoped to `type: pages`**. That scope is deliberate: posts must
+  keep their own `image:` (or none), because the post cards key off
+  `post.image` — broadening the default to posts would make every card
+  show the social card instead of its gradient placeholder. A post with
+  its own `image:` overrides the default for its own `og:image`.
 - **Featured images:** 16:9 (e.g. 1600×900). Compress to **WebP**
   (~60 KB) and store in `assets/images/blog/`. Cards/hero use
   `object-fit: cover`, so keep the subject centered.
