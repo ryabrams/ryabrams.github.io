@@ -5,6 +5,7 @@ date: 2026-03-24
 categories: [Projects]
 excerpt: "A small script that mirrors my personal-calendar events onto my work calendar as [Personal] holds, so colleagues can't book over my commitments."
 read_time: 2
+image: /assets/images/blog/google-calendar-sync-cover.webp
 published: false   # <- draft: not built or visible on the live site. Set true (or remove) to publish.
 ---
 
