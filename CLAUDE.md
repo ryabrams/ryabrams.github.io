@@ -111,17 +111,32 @@ Cloudflare sits in front of GitHub Pages and caches aggressively.
 
 - **All interactive features are vanilla, inline JS** in
   `_layouts/default.html` (theme toggle, hamburger, copyright year,
-  copy-link). No build step, no framework, no client-side package
-  manager — keep it that way.
+  copy-link, cookie consent). No build step, no framework, no
+  client-side package manager — keep it that way.
 - **Don't add third-party JS for features.** Share buttons use plain
   intent URLs (LinkedIn/X/mailto) and the clipboard API with an
   `execCommand` fallback — no SDKs. New features should follow suit.
 - **Analytics is the deliberate exception:** Google Tag Manager
-  (`gtm.js`) loads in `head.html` (and a `<noscript>` iframe in
-  `default.html`) whenever `site.gtm_id` is set — currently
-  `GTM-TCCWGMLK`. This **is** third-party tracking, so the site is not
-  "script-free" or privacy-neutral; any additional tags live inside GTM,
-  not the repo.
+  (`gtm.id` = `GTM-TCCWGMLK`) is the only third-party tag. So the site
+  is **not** "script-free" or privacy-neutral; any additional tags live
+  inside GTM, not the repo.
+- **GTM is consent-gated — it does NOT auto-load.** `head.html` only
+  *defines* `window.loadGTM()` (guarded by `__gtmLoaded`); nothing
+  invokes it until the visitor consents. The consent script at the
+  bottom of `default.html` calls `loadGTM()` only when stored consent
+  has `analytics: true`. There is **no** GTM `<noscript>` iframe (it
+  can't honor consent). Don't reintroduce an auto-loading GTM snippet.
+- **Cookie consent UI:** `_includes/cookie-consent.html` (banner +
+  settings modal), styled in `_sass/_cookie.scss`, rendered only when
+  `site.gtm_id` is set. Buttons carry `data-cc` actions
+  (`accept` / `reject` / `settings` / `save` / `close`); the choice is
+  saved in `localStorage` under `cookieConsent`
+  (`{"analytics": bool}`) and honored on return visits. An element with
+  `id="open-cookie-settings"` (anywhere — e.g. the privacy page)
+  reopens the modal so visitors can change their choice; the handler
+  no-ops if that element is absent. Note: rejecting *after* accepting
+  takes effect on the next page load (a loaded GTM can't be unloaded
+  mid-page).
 
 ## Content conventions
 
