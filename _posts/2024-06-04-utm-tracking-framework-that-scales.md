@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "The UTM Tracking Framework That Actually Scales"
-date: 2024-06-04
+date: 2026-06-04
 categories: [Marketing Attribution]
 excerpt: "Stop losing attribution data. Here's the system I built and maintain for clean UTM coverage at scale."
 description: "A field-tested UTM system: naming convention, central link generator, monthly audit. Steal the playbook →"
