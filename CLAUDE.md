@@ -2,11 +2,6 @@
 
 Guidance for working in this repository.
 
-> **Read this entire file before doing any work — do not skim.** It is
-> short on purpose. The rules below (especially the branch/publish
-> guardrails) are not optional, and missing one has real consequences
-> (an unwanted deploy, a published draft, a broken mobile layout).
-
 ## Start here (the rules that matter most)
 
 1. **Work on `dev`, not `main`.** Develop and commit on `dev`; push to
@@ -212,3 +207,8 @@ Cloudflare sits in front of GitHub Pages and caches aggressively.
 - Keep edits consistent with the existing style; reuse the theme tokens.
 - Don't commit `_site/`, caches, `Gemfile.lock`, or
   `.claude/settings.local.json` (see `.gitignore`).
+- **Keep this file current.** If anything surfaces during work that
+  belongs here — a new convention, a recurring gotcha, a workflow rule,
+  a non-obvious build/deploy detail — point it out and ask whether to
+  document it in CLAUDE.md. Don't silently update this file; flag it and
+  let the owner decide.
