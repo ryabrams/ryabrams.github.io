@@ -41,3 +41,5 @@ The script checks my personal calendar and if it detects an event, it creates an
 - Do not create events on my work calendar for all day personal events (ie. Vacation — those are usually handled differently at work so I don't want to apply it for those events)
 
 - It creates an event on my work calendar called [Personal]. I don't want any of the information from my personal calendar showing up on my work calendar)
+
+![A personal "Mika Tutor" event mirrored onto the work calendar as a "[Personal]" block](/assets/images/blog/google-calendar-sync.webp)

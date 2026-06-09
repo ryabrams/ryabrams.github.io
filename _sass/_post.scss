@@ -212,6 +212,15 @@
     text-decoration: underline;
   }
 
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 32px auto;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+
   table {
     width: 100%;
     border-collapse: collapse;
