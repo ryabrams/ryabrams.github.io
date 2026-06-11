@@ -96,8 +96,19 @@
       function apply(consent) {
         if (consent && consent.analytics && typeof window.loadGTM === 'function') window.loadGTM();
       }
-      function showBanner() { if (banner) banner.hidden = false; }
-      function hideBanner() { if (banner) banner.hidden = true; }
+      function showBanner() {
+        if (!banner) return;
+        banner.hidden = false;
+        // let the hidden state paint, then transition in
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () { banner.classList.add('cookie-visible'); });
+        });
+      }
+      function hideBanner() {
+        if (!banner) return;
+        banner.classList.remove('cookie-visible');
+        setTimeout(function () { banner.hidden = true; }, 400);
+      }
       function openModal() {
         if (!modal) return;
         var c = read();
@@ -136,9 +147,9 @@
         if (e.key === 'Escape' && modal && !modal.hidden) closeModal();
       });
 
-      // On load: honor a prior choice, otherwise prompt
+      // On load: honor a prior choice, otherwise prompt after a short, graceful delay
       var existing = read();
-      if (existing) { apply(existing); } else { showBanner(); }
+      if (existing) { apply(existing); } else { setTimeout(showBanner, 600); }
     })();
   </script>
 </body>
