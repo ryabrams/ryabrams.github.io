@@ -1,0 +1,27 @@
+# robots.txt — ryanabrams.com
+# Default: allow all crawlers full access.
+
+User-agent: *
+Allow: /
+
+# Utility pages with no search value
+Disallow: /thanks/
+Disallow: /thanks-booking/
+
+# AI crawlers — explicitly allowed (documents intent; toggle here later if needed)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://www.ryanabrams.com/sitemap.xml
