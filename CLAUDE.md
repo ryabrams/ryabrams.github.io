@@ -60,8 +60,13 @@ Cloudflare sits in front of GitHub Pages and caches aggressively.
 - `assets/css/main.css` is cache-busted with
   `?v={{ site.time | date: '%s' }}` in `_includes/head.html`, so CSS
   refreshes on each build.
-- HTML can still be served stale. After a change that looks like it
-  "didn't deploy," do a Cloudflare **Purge Everything** and hard-refresh.
+- HTML can be served stale. **Cache purging is automated:**
+  `.github/workflows/cloudflare-purge.yml` fires on a successful
+  `github-pages` deployment and purges the Cloudflare cache via the API
+  (needs repo secrets `CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ZONE_ID`; the
+  token only needs Zone · Cache Purge). If something still looks stale,
+  check that workflow's run in the Actions tab, or do a manual Cloudflare
+  **Purge Everything** + hard-refresh.
 - The sandbox cannot fetch the live domain (`host_not_allowed`); verify
   changes via a local build instead.
 
