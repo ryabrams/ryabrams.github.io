@@ -1,0 +1,36 @@
+name: Purge Cloudflare cache
+
+# Runs after a GitHub Pages deployment finishes successfully, then purges
+# the Cloudflare cache so visitors get the fresh HTML immediately (Cloudflare
+# caches HTML and does NOT auto-purge when Pages redeploys).
+on:
+  deployment_status:
+
+permissions:
+  contents: read
+
+jobs:
+  purge:
+    # Only when the github-pages deployment reports success
+    if: >
+      github.event.deployment_status.state == 'success' &&
+      github.event.deployment_status.environment == 'github-pages'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Purge everything
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ZONE: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+        run: |
+          if [ -z "$CF_TOKEN" ] || [ -z "$CF_ZONE" ]; then
+            echo "Cloudflare secrets not set yet — skipping purge."
+            exit 0
+          fi
+          resp=$(curl -sS -X POST \
+            "https://api.cloudflare.com/client/v4/zones/${CF_ZONE}/purge_cache" \
+            -H "Authorization: Bearer ${CF_TOKEN}" \
+            -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}')
+          echo "$resp"
+          echo "$resp" | grep -q '"success":true' || { echo "Cloudflare purge FAILED"; exit 1; }
+          echo "Cloudflare cache purged."
