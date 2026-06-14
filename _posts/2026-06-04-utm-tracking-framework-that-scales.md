@@ -6,7 +6,7 @@ categories: [Marketing Attribution]
 excerpt: "Stop losing attribution data. Here's the system I built and maintain for clean UTM coverage at scale."
 description: "A field-tested UTM system: naming convention, central link generator, monthly audit. Steal the playbook →"
 read_time: 5
-image: /assets/images/blog/utm-tracking-framework.webp
+image: /assets/images/blog/utm-tracking-flow.webp
 ---
 
 UTM parameters are simple in theory and a mess in practice. Every team I've joined has had some version of a UTM spreadsheet that nobody fully trusts, inconsistent naming that makes reports useles[...]
