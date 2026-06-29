@@ -121,27 +121,37 @@ Cloudflare sits in front of GitHub Pages and caches aggressively.
 - **Don't add third-party JS for features.** Share buttons use plain
   intent URLs (LinkedIn/X/mailto) and the clipboard API with an
   `execCommand` fallback — no SDKs. New features should follow suit.
-- **Analytics is the deliberate exception:** Google Tag Manager
-  (`gtm.id` = `GTM-TCCWGMLK`) is the only third-party tag. So the site
-  is **not** "script-free" or privacy-neutral; any additional tags live
-  inside GTM, not the repo.
-- **GTM is consent-gated — it does NOT auto-load.** `head.html` only
-  *defines* `window.loadGTM()` (guarded by `__gtmLoaded`); nothing
-  invokes it until the visitor consents. The consent script at the
-  bottom of `default.html` calls `loadGTM()` only when stored consent
-  has `analytics: true`. There is **no** GTM `<noscript>` iframe (it
-  can't honor consent). Don't reintroduce an auto-loading GTM snippet.
+- **Analytics/advertising are the deliberate exception:** Google Tag
+  Manager (`gtm.id` = `GTM-TCCWGMLK`) is the only third-party tag, and it
+  now holds both Google Analytics **and** an X (Twitter) advertising
+  pixel. So the site is **not** "script-free" or privacy-neutral; any
+  additional tags live inside GTM, not the repo.
+- **GTM is consent-gated via Consent Mode v2 — it does NOT auto-load.**
+  `head.html` sets `gtag('consent','default', …)` with everything
+  **denied**, then only *defines* `window.loadGTM()` (guarded by
+  `__gtmLoaded`); nothing invokes it until the visitor grants a
+  category. The consent script at the bottom of `default.html` pushes
+  `gtag('consent','update', …)` per category and calls `loadGTM()` only
+  when **analytics OR advertising** is granted. There is **no** GTM
+  `<noscript>` iframe (it can't honor consent). Don't reintroduce an
+  auto-loading GTM snippet.
+- **Two consent categories → Consent Mode signals:** Analytics maps to
+  `analytics_storage`; Advertising maps to `ad_storage` +
+  `ad_user_data` + `ad_personalization`. **GTM-side requirement:** each
+  tag must respect these — GA4 honors `analytics_storage` natively, but
+  the X/ad pixel (a custom tag) needs an *Additional consent check*
+  requiring `ad_storage` in GTM, or it'll fire regardless. The repo
+  sends the signals; gating each tag is configured in the GTM UI.
 - **Cookie consent UI:** `_includes/cookie-consent.html` (banner +
-  settings modal), styled in `_sass/_cookie.scss`, rendered only when
-  `site.gtm_id` is set. Buttons carry `data-cc` actions
-  (`accept` / `reject` / `settings` / `save` / `close`); the choice is
-  saved in `localStorage` under `cookieConsent`
-  (`{"analytics": bool}`) and honored on return visits. An element with
-  `id="open-cookie-settings"` (anywhere — e.g. the privacy page)
-  reopens the modal so visitors can change their choice; the handler
-  no-ops if that element is absent. Note: rejecting *after* accepting
-  takes effect on the next page load (a loaded GTM can't be unloaded
-  mid-page).
+  settings modal with Necessary / Analytics / Advertising), styled in
+  `_sass/_cookie.scss`, rendered only when `site.gtm_id` is set. Buttons
+  carry `data-cc` actions (`accept` / `reject` / `settings` / `save` /
+  `close`); the choice is saved in `localStorage` under `cookieConsent`
+  (`{"analytics": bool, "advertising": bool}`) and honored on return
+  visits. An element with `id="open-cookie-settings"` (anywhere — e.g.
+  the privacy page) reopens the modal; the handler no-ops if absent.
+  Note: revoking *after* granting takes effect on the next page load (a
+  loaded GTM can't be unloaded mid-page).
 
 ## Content conventions
 

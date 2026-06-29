@@ -13,8 +13,18 @@
   })();
 </script>
 
-{% if site.gtm_id and site.gtm_id != "" %}<!-- Google Tag Manager — loaded only after cookie consent (see consent script in default.html) -->
+{% if site.gtm_id and site.gtm_id != "" %}<!-- Google Tag Manager — Consent Mode default-denied; loaded only after the visitor grants a category (see consent script in default.html) -->
 <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  window.gtag = gtag;
+  // Consent Mode v2 — deny everything until the visitor chooses
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied'
+  });
   window.GTM_ID = '{{ site.gtm_id }}';
   window.loadGTM = function () {
     if (window.__gtmLoaded || !window.GTM_ID) return;

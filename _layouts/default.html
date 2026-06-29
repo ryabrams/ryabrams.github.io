@@ -85,6 +85,7 @@
       var banner = document.getElementById('cookie-banner');
       var modal = document.getElementById('cookie-settings');
       var toggle = document.getElementById('cc-analytics');
+      var adToggle = document.getElementById('cc-advertising');
       var KEY = 'cookieConsent';
 
       function read() {
@@ -93,8 +94,20 @@
       function save(consent) {
         try { localStorage.setItem(KEY, JSON.stringify(consent)); } catch (e) {}
       }
+      // Push per-category consent to GTM (Consent Mode v2), then load GTM if any granted
       function apply(consent) {
-        if (consent && consent.analytics && typeof window.loadGTM === 'function') window.loadGTM();
+        if (!consent) return;
+        if (typeof window.gtag === 'function') {
+          window.gtag('consent', 'update', {
+            analytics_storage: consent.analytics ? 'granted' : 'denied',
+            ad_storage:        consent.advertising ? 'granted' : 'denied',
+            ad_user_data:      consent.advertising ? 'granted' : 'denied',
+            ad_personalization: consent.advertising ? 'granted' : 'denied'
+          });
+        }
+        if ((consent.analytics || consent.advertising) && typeof window.loadGTM === 'function') {
+          window.loadGTM();
+        }
       }
       function showBanner() {
         if (!banner) return;
@@ -113,12 +126,12 @@
         if (!modal) return;
         var c = read();
         if (toggle) toggle.checked = !!(c && c.analytics);
+        if (adToggle) adToggle.checked = !!(c && c.advertising);
         modal.hidden = false;
       }
       function closeModal() { if (modal) modal.hidden = true; }
 
-      function decide(analytics) {
-        var consent = { analytics: !!analytics };
+      function decide(consent) {
         save(consent);
         apply(consent);
         hideBanner();
@@ -129,9 +142,9 @@
       document.querySelectorAll('[data-cc]').forEach(function (el) {
         el.addEventListener('click', function () {
           switch (el.getAttribute('data-cc')) {
-            case 'accept':   decide(true); break;
-            case 'reject':   decide(false); break;
-            case 'save':     decide(toggle && toggle.checked); break;
+            case 'accept':   decide({ analytics: true, advertising: true }); break;
+            case 'reject':   decide({ analytics: false, advertising: false }); break;
+            case 'save':     decide({ analytics: !!(toggle && toggle.checked), advertising: !!(adToggle && adToggle.checked) }); break;
             case 'settings': openModal(); break;
             case 'close':    closeModal(); break;
           }
