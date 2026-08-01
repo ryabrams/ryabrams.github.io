@@ -165,5 +165,73 @@
       if (existing) { apply(existing); } else { setTimeout(showBanner, 600); }
     })();
   </script>
+  {% if site.hubspot_portal_id and site.hubspot_form_id %}
+  <script>
+    (function () {
+      // Contact form -> HubSpot Forms API. No HubSpot script or cookies are loaded;
+      // the endpoint host is EU-specific because the portal is EU-hosted.
+      var form = document.getElementById('contact-form');
+      if (!form) return;
+
+      var ENDPOINT = 'https://{{ site.hubspot_api_host }}/submissions/v3/integration/submit/{{ site.hubspot_portal_id }}/{{ site.hubspot_form_id }}';
+      var FIELDS = ['firstname', 'lastname', 'email', 'message'];
+      var errorEl = document.getElementById('contact-error');
+      var btn = form.querySelector('.form-submit');
+      var label = form.querySelector('.form-submit-label');
+      var defaultLabel = label ? label.textContent : '';
+
+      function showError(msg) {
+        if (!errorEl) return;
+        errorEl.textContent = msg;
+        errorEl.hidden = false;
+      }
+      function clearError() {
+        if (errorEl) errorEl.hidden = true;
+      }
+      function setBusy(busy) {
+        if (btn) btn.disabled = busy;
+        if (label) label.textContent = busy ? 'Sending…' : defaultLabel;
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        // Let native validation handle empty/invalid fields first.
+        if (typeof form.reportValidity === 'function' && !form.reportValidity()) return;
+        clearError();
+        setBusy(true);
+
+        var fields = [];
+        FIELDS.forEach(function (name) {
+          var input = form.elements[name];
+          if (input && input.value.trim()) {
+            fields.push({ name: name, value: input.value.trim() });
+          }
+        });
+
+        fetch(ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            fields: fields,
+            context: {
+              pageUri: window.location.href,
+              pageName: document.title
+            }
+          })
+        }).then(function (res) {
+          if (res.ok) {
+            window.location = '{{ "/thanks/" | relative_url }}';
+            return;
+          }
+          setBusy(false);
+          showError('Sorry — something went wrong sending your message. Please try again, or email me directly.');
+        }).catch(function () {
+          setBusy(false);
+          showError('Sorry — your message could not be sent. Please check your connection and try again.');
+        });
+      });
+    })();
+  </script>
+  {% endif %}
 </body>
 </html>

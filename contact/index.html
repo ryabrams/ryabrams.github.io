@@ -10,21 +10,16 @@ permalink: /contact/
   <h1>Let's talk.</h1>
   <p class="sub">Have a question or want to work together? Fill in the form and I'll get back to you.</p>
 
-  <form
-    class="contact-form"
-    action="https://formspree.io/f/{{ site.formspree_id }}"
-    method="POST">
-
-    <input type="hidden" name="_next" value="{{ '/thanks/' | absolute_url }}">
+  <form class="contact-form" id="contact-form">
 
     <div class="form-row">
       <div class="form-group">
         <label for="fname">First name</label>
-        <input type="text" id="fname" name="first_name" placeholder="John" required>
+        <input type="text" id="fname" name="firstname" placeholder="John" required>
       </div>
       <div class="form-group">
         <label for="lname">Last name</label>
-        <input type="text" id="lname" name="last_name" placeholder="Smith" required>
+        <input type="text" id="lname" name="lastname" placeholder="Smith" required>
       </div>
     </div>
 
@@ -38,8 +33,10 @@ permalink: /contact/
       <textarea id="message" name="message" placeholder="Tell me what's on your mind…" required></textarea>
     </div>
 
+    <p class="form-error" id="contact-error" role="alert" hidden></p>
+
     <button type="submit" class="form-submit">
-      Send message
+      <span class="form-submit-label">Send message</span>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <path d="M5 12h14M12 5l7 7-7 7"/>
       </svg>

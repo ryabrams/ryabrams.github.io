@@ -44,8 +44,11 @@ social:
 # Google Tag Manager
 gtm_id: "GTM-TCCWGMLK"
 
-# Formspree form ID
-formspree_id: "xeelnnld"
+# HubSpot contact form (submitted via the Forms API from _layouts/default.html).
+# NOTE: this portal is EU-hosted, so submissions must go to api-eu1.hsforms.com.
+hubspot_portal_id: "144580056"
+hubspot_form_id: "ca796235-0b98-4b4d-a19e-3ef3be636864"
+hubspot_api_host: "api-eu1.hsforms.com"
 
 # Build settings
 markdown: kramdown

@@ -116,11 +116,33 @@ Cloudflare sits in front of GitHub Pages and caches aggressively.
 
 - **All interactive features are vanilla, inline JS** in
   `_layouts/default.html` (theme toggle, hamburger, copyright year,
-  copy-link, cookie consent). No build step, no framework, no
-  client-side package manager — keep it that way.
+  copy-link, cookie consent, contact form). No build step, no framework,
+  no client-side package manager — keep it that way.
 - **Don't add third-party JS for features.** Share buttons use plain
   intent URLs (LinkedIn/X/mailto) and the clipboard API with an
   `execCommand` fallback — no SDKs. New features should follow suit.
+- **Contact form → HubSpot Forms API** (replaced Formspree). The form in
+  `contact/index.html` has no `action`; an inline handler in
+  `default.html` POSTs JSON to
+  `https://{host}/submissions/v3/integration/submit/{portal}/{form}`,
+  then redirects to `/thanks/`. IDs live in `_config.yml`
+  (`hubspot_portal_id`, `hubspot_form_id`, `hubspot_api_host`).
+  Gotchas:
+  - **The portal is EU-hosted** — the host must be `api-eu1.hsforms.com`.
+    Plain `api.hsforms.com` silently fails for this portal.
+  - **Input `name` attributes must be HubSpot internal property names**
+    (`firstname`, `lastname`, `email`, `message`) and must match the
+    HubSpot form's fields *exactly* — HubSpot returns 400
+    (`FIELD_NOT_IN_FORM_DEFINITION` / `REQUIRED_FIELD`) for extra or
+    missing fields. Adding a field here means adding it in HubSpot too.
+  - Deliberately **no HubSpot script and no HubSpot cookies**, so this
+    doesn't touch the cookie-consent system. Don't "fix" this by adding
+    the `hbspt.forms.create` embed — it renders in an iframe (unless
+    Marketing/CMS Hub Pro+), which would discard the site's form styling
+    and dark mode.
+  - Trade-off accepted: **no-JS visitors can't submit**, and without the
+    HubSpot tracking cookie (`hutk`) submissions aren't tied to a
+    visitor session.
 - **Analytics/advertising are the deliberate exception:** Google Tag
   Manager (`gtm.id` = `GTM-TCCWGMLK`) is the only third-party tag, and it
   now holds both Google Analytics **and** an X (Twitter) advertising
