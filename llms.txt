@@ -1,0 +1,46 @@
+---
+permalink: /llms.txt
+sitemap: false
+---
+{%- comment -%}
+  llms.txt — LLM-readable index of the site (llmstxt.org convention).
+  Generated at build time. Honors the same visibility policy as search:
+  pages with `noindex: true` are excluded, and drafts (`published: false`)
+  never reach the build in the first place.
+{%- endcomment -%}
+{%- assign blog_posts = "" | split: "" -%}
+{%- assign project_posts = "" | split: "" -%}
+{%- for post in site.posts -%}
+  {%- if post.categories contains 'Projects' -%}
+    {%- assign project_posts = project_posts | push: post -%}
+  {%- else -%}
+    {%- assign blog_posts = blog_posts | push: post -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- assign listed_pages = site.html_pages | where_exp: "p", "p.title" | sort: "url" -%}
+# {{ site.title }}
+
+> {{ site.description }}
+
+Personal site and blog of {{ site.author.name }}, covering marketing operations, revenue attribution, martech, and automation. Each link below points to the standard HTML page.
+{% if blog_posts.size > 0 %}
+## Blog posts
+{% for post in blog_posts %}
+- [{{ post.title }}]({{ post.url | absolute_url }}){% if post.excerpt %}: {{ post.excerpt | strip_html | strip_newlines | strip }}{% endif %}
+{%- endfor %}
+{% endif %}
+{%- if project_posts.size > 0 %}
+## Projects
+{% for post in project_posts %}
+- [{{ post.title }}]({{ post.url | absolute_url }}){% if post.excerpt %}: {{ post.excerpt | strip_html | strip_newlines | strip }}{% endif %}
+{%- endfor %}
+{% endif %}
+{%- if listed_pages.size > 0 %}
+## Pages
+{% for p in listed_pages %}{% unless p.noindex %}
+- [{{ p.title }}]({{ p.url | absolute_url }}){% if p.description %}: {{ p.description | strip_newlines | strip }}{% endif %}
+{%- endunless %}{% endfor %}
+{% endif %}
+## Optional
+
+- [RSS feed]({{ '/feed.xml' | absolute_url }}): full-text feed of new posts
