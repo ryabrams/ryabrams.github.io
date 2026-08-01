@@ -199,6 +199,24 @@
     }
   }
 
+  // Markdown task lists (- [ ] item) — drop the bullet, align the checkbox
+  ul.task-list {
+    list-style: none;
+    padding-left: 0;
+
+    li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    input[type="checkbox"] {
+      margin: 9px 0 0;
+      flex-shrink: 0;
+      accent-color: var(--accent);
+    }
+  }
+
   a {
     color: var(--accent);
     text-decoration: underline;
